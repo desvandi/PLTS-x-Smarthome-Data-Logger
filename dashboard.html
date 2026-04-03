@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PLTS">
+  <meta name="description" content="Sistem Monitoring dan Kontrol PLTS SmartHome">
+  <title>PLTS SmartHome - Dashboard</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="icon" type="image/png" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- ============================================================
+         SIDEBAR OVERLAY (Mobile)
+         ============================================================ -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ============================================================
+         SIDEBAR
+         ============================================================ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="20" width="48" height="30" rx="3" fill="#1c2333" stroke="#58a6ff" stroke-width="1.5"/>
+            <line x1="24" y1="20" x2="24" y2="50" stroke="#58a6ff" stroke-width="0.8" opacity="0.5"/>
+            <line x1="40" y1="20" x2="40" y2="50" stroke="#58a6ff" stroke-width="0.8" opacity="0.5"/>
+            <line x1="8" y1="30" x2="56" y2="30" stroke="#58a6ff" stroke-width="0.8" opacity="0.5"/>
+            <line x1="8" y1="40" x2="56" y2="40" stroke="#58a6ff" stroke-width="0.8" opacity="0.5"/>
+            <circle cx="48" cy="10" r="6" fill="#d29922"/>
+            <line x1="32" y1="50" x2="32" y2="58" stroke="#8b949e" stroke-width="2" stroke-linecap="round"/>
+            <line x1="24" y1="58" x2="40" y2="58" stroke="#8b949e" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sidebar-title">PLTS SmartHome</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- Dashboard -->
+        <a class="nav-item active" data-page="overview" href="#" role="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+
+        <!-- Monitoring -->
+        <a class="nav-item" data-page="monitoring" href="#" role="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </span>
+          <span class="nav-label">Monitoring</span>
+        </a>
+
+        <!-- Kontrol (admin|tech only) -->
+        <a class="nav-item" data-page="controls" data-role="admin,tech" href="#" role="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="5" width="22" height="14" rx="2" ry="2"/>
+              <line x1="16" y1="12" x2="16" y2="12.01"/>
+            </svg>
+          </span>
+          <span class="nav-label">Kontrol</span>
+        </a>
+
+        <!-- Otomasi (admin|tech only) -->
+        <a class="nav-item" data-page="automation" data-role="admin,tech" href="#" role="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Otomasi</span>
+        </a>
+
+        <!-- Admin (admin only) -->
+        <a class="nav-item" data-page="admin" data-role="admin" href="#" role="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Admin</span>
+        </a>
+
+        <!-- Pengaturan -->
+        <a class="nav-item" data-page="settings" href="#" role="button">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Pengaturan</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <!-- Logout -->
+        <a class="nav-item" id="nav-logout" href="#" role="button" style="color: var(--accent-red);">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          <span class="nav-label">Keluar</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ============================================================
+         MAIN WRAPPER
+         ============================================================ -->
+    <div class="main-wrapper" id="main-wrapper">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <!-- Hamburger (mobile) -->
+          <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <!-- Sidebar toggle (desktop) -->
+          <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="9" y1="3" x2="9" y2="21"/>
+            </svg>
+          </button>
+          <!-- Connection Status -->
+          <div class="connection-status">
+            <span class="status-dot" id="status-dot" title="Terhubung"></span>
+            <span id="status-text">Terhubung</span>
+          </div>
+        </div>
+
+        <div class="header-center">
+          <span class="header-clock" id="header-clock">--:--:--</span>
+        </div>
+
+        <div class="header-right">
+          <!-- Notification Bell -->
+          <button class="notification-btn" id="notification-btn" aria-label="Notifikasi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-count hidden" id="notification-count">0</span>
+          </button>
+          <!-- User Info -->
+          <div class="user-info">
+            <div class="user-avatar" id="user-avatar">A</div>
+            <span class="user-name" id="user-name">Admin</span>
+            <span class="role-badge admin" id="user-role-badge">Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ============================================================
+           MAIN CONTENT
+           ============================================================ -->
+      <main class="main-content">
+
+        <!-- ========================================================
+             PAGE: OVERVIEW
+             ======================================================== -->
+        <div class="page active" id="page-overview">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Dashboard</h1>
+              <p class="page-subtitle">Ringkasan sistem PLTS SmartHome</p>
+            </div>
+          </div>
+
+          <!-- Metric Cards -->
+          <div class="metrics-grid">
+            <!-- Battery SoC -->
+            <div class="metric-card green">
+              <div class="metric-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg>
+                Baterai (SoC)
+              </div>
+              <div class="soc-gauge-wrapper">
+                <div class="soc-gauge">
+                  <svg viewBox="0 0 64 64">
+                    <circle class="soc-gauge-bg" cx="32" cy="32" r="28"/>
+                    <circle class="soc-gauge-fill" id="soc-gauge-fill" cx="32" cy="32" r="28"
+                      stroke-dasharray="175.93" stroke-dashoffset="175.93"/>
+                  </svg>
+                  <span class="soc-gauge-text" id="soc-gauge-text">0%</span>
+                </div>
+                <div>
+                  <div class="metric-value"><span id="metric-soc">--</span><span class="metric-unit">%</span></div>
+                  <div class="metric-sub" id="metric-v-pack">-- V</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Solar Power -->
+            <div class="metric-card yellow">
+              <div class="metric-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                Daya Surya
+              </div>
+              <div class="metric-value"><span id="metric-solar">--</span><span class="metric-unit">W</span></div>
+              <div class="metric-sub" id="metric-mppt-detail">-- V / -- A</div>
+            </div>
+
+            <!-- Load Power -->
+            <div class="metric-card blue">
+              <div class="metric-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Beban Daya
+              </div>
+              <div class="metric-value"><span id="metric-load">--</span><span class="metric-unit">W</span></div>
+              <div class="metric-sub" id="metric-ac-detail">-- V / -- A</div>
+            </div>
+
+            <!-- Temperature -->
+            <div class="metric-card orange">
+              <div class="metric-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                Suhu
+              </div>
+              <div class="metric-value"><span id="metric-temp">--</span><span class="metric-unit">°C</span></div>
+              <div class="metric-sub" id="metric-humi">Kelembaban: --%</div>
+            </div>
+          </div>
+
+          <!-- Power Chart -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Daya 24 Jam Terakhir</span>
+              <div class="time-range">
+                <button class="time-range-btn" data-hours="1">1 Jam</button>
+                <button class="time-range-btn" data-hours="6">6 Jam</button>
+                <button class="time-range-btn active" data-hours="24">24 Jam</button>
+                <button class="time-range-btn" data-hours="168">7 Hari</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-power"></canvas>
+            </div>
+          </div>
+
+          <!-- Cell Voltage Bar Chart -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Tegangan Sel Baterai</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-cells"></canvas>
+            </div>
+          </div>
+
+          <!-- Quick Control Panel -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="2" ry="2"/><line x1="16" y1="12" x2="16" y2="12.01"/></svg>
+              Kontrol Cepat
+            </h2>
+            <div class="quick-controls" id="quick-controls">
+              <!-- Populated by JS -->
+              <div class="loading-page" style="grid-column: 1/-1;">
+                <div class="spinner"></div>
+                <span>Memuat kontrol...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Alerts -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Peringatan Terbaru
+            </h2>
+            <div class="alerts-list" id="recent-alerts">
+              <div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <div class="empty-state-title">Tidak ada peringatan</div>
+                <div class="empty-state-text">Semua sistem berjalan normal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================
+             PAGE: MONITORING
+             ======================================================== -->
+        <div class="page" id="page-monitoring">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Monitoring</h1>
+              <p class="page-subtitle">Data sensor real-time dan grafik detail</p>
+            </div>
+          </div>
+
+          <!-- Real-time Sensor Data -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Data Sensor Real-time
+            </h2>
+            <div class="sensors-grid" id="sensor-cards">
+              <div class="sensor-card">
+                <span class="sensor-label">Tegangan MPPT</span>
+                <div class="sensor-value"><span id="sensor-v-mppt">--</span><span class="sensor-unit">V</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Arus MPPT</span>
+                <div class="sensor-value"><span id="sensor-i-mppt">--</span><span class="sensor-unit">A</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Daya MPPT</span>
+                <div class="sensor-value"><span id="sensor-p-mppt">--</span><span class="sensor-unit">W</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Tegangan Pack</span>
+                <div class="sensor-value"><span id="sensor-v-pack">--</span><span class="sensor-unit">V</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">SoC Baterai</span>
+                <div class="sensor-value"><span id="sensor-soc">--</span><span class="sensor-unit">%</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Suhu</span>
+                <div class="sensor-value"><span id="sensor-temp">--</span><span class="sensor-unit">°C</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Kelembaban</span>
+                <div class="sensor-value"><span id="sensor-humi">--</span><span class="sensor-unit">%</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Arus AC</span>
+                <div class="sensor-value"><span id="sensor-i-ac">--</span><span class="sensor-unit">A</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">Daya AC</span>
+                <div class="sensor-value"><span id="sensor-p-ac">--</span><span class="sensor-unit">W</span></div>
+              </div>
+              <div class="sensor-card">
+                <span class="sensor-label">PV Terhubung</span>
+                <div class="sensor-value" id="sensor-pv-connected" style="font-size:1rem;">--</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Power Chart -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Grafik Daya Detail</span>
+              <div class="time-range">
+                <button class="time-range-btn" data-hours="1">1 Jam</button>
+                <button class="time-range-btn" data-hours="6">6 Jam</button>
+                <button class="time-range-btn active" data-hours="24">24 Jam</button>
+                <button class="time-range-btn" data-hours="168">7 Hari</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-power-detail"></canvas>
+            </div>
+          </div>
+
+          <!-- Battery Cell Voltages -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Tegangan Sel Baterai (Detail)</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-cells-detail"></canvas>
+            </div>
+          </div>
+
+          <!-- Temperature & Humidity Chart -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Suhu &amp; Kelembaban</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-temp-humi"></canvas>
+            </div>
+          </div>
+
+          <!-- MPPT Detail -->
+          <div class="detail-card section">
+            <div class="detail-card-header">
+              <span class="detail-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--accent-yellow)"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                MPPT Solar
+              </span>
+              <span class="badge badge-yellow" id="mppt-status-badge">Aktif</span>
+            </div>
+            <div class="detail-card-body">
+              <div class="detail-item">
+                <span class="detail-item-label">Tegangan</span>
+                <div class="detail-item-value"><span id="detail-mppt-v">--</span> <span style="font-size:0.75rem;color:var(--text-muted)">V</span></div>
+              </div>
+              <div class="detail-item">
+                <span class="detail-item-label">Arus</span>
+                <div class="detail-item-value"><span id="detail-mppt-i">--</span> <span style="font-size:0.75rem;color:var(--text-muted)">A</span></div>
+              </div>
+              <div class="detail-item">
+                <span class="detail-item-label">Daya</span>
+                <div class="detail-item-value"><span id="detail-mppt-p">--</span> <span style="font-size:0.75rem;color:var(--text-muted)">W</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AC Load Detail -->
+          <div class="detail-card section">
+            <div class="detail-card-header">
+              <span class="detail-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--accent-blue)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Beban AC
+              </span>
+              <span class="badge badge-blue" id="ac-status-badge">Aktif</span>
+            </div>
+            <div class="detail-card-body">
+              <div class="detail-item">
+                <span class="detail-item-label">Arus</span>
+                <div class="detail-item-value"><span id="detail-ac-i">--</span> <span style="font-size:0.75rem;color:var(--text-muted)">A</span></div>
+              </div>
+              <div class="detail-item">
+                <span class="detail-item-label">Daya</span>
+                <div class="detail-item-value"><span id="detail-ac-p">--</span> <span style="font-size:0.75rem;color:var(--text-muted)">W</span></div>
+              </div>
+              <div class="detail-item">
+                <span class="detail-item-label">Status</span>
+                <div class="detail-item-value" id="detail-ac-status" style="font-size:0.95rem;">--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================
+             PAGE: CONTROLS
+             ======================================================== -->
+        <div class="page" id="page-controls">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Kontrol</h1>
+              <p class="page-subtitle">Kontrol relay dan perangkat</p>
+            </div>
+          </div>
+
+          <!-- Relay Grid -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="2" ry="2"/><line x1="16" y1="12" x2="16" y2="12.01"/></svg>
+              Relay (13 Kanal)
+            </h2>
+            <div class="relays-grid" id="relay-grid">
+              <!-- Relay cards populated by JS -->
+              <div class="loading-page" style="grid-column: 1/-1;">
+                <div class="spinner"></div>
+                <span>Memuat relay...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PWM Control -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+              Kontrol PWM
+            </h2>
+            <div class="card">
+              <div class="card-body" style="padding: 1.25rem;">
+                <div class="slider-control">
+                  <div class="slider-header">
+                    <span class="slider-label">Lampu Aux Fatimah</span>
+                    <span class="slider-value" id="pwm-value">0%</span>
+                  </div>
+                  <input type="range" class="slider-track" id="pwm-slider" min="0" max="100" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PV Disconnect -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-red)"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+              PV Disconnect
+            </h2>
+            <div class="pv-disconnect">
+              <div class="pv-disconnect-info">
+                <span class="pv-disconnect-label">Putuskan Sambungan Panel Surya</span>
+                <span class="pv-disconnect-desc">Matikan daya dari panel surya ke sistem</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pv-disconnect-toggle">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label" id="pv-disconnect-label">Terhubung</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- PIR Configuration -->
+          <div class="section">
+            <h2 class="section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan)"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Konfigurasi PIR
+            </h2>
+            <div class="grid-2" id="pir-config-grid">
+              <!-- PIR 1 -->
+              <div class="pir-card" id="pir-card-1">
+                <div class="pir-card-header">
+                  <span class="pir-card-title">PIR 1</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" class="pir-enable" data-pir="1">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="pir-card-body">
+                  <div class="form-group">
+                    <label class="form-label">Relay Terhubung</label>
+                    <div class="pir-relay-mapping">
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="1"><label>Relay 1</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="2"><label>Relay 2</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="3"><label>Relay 3</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="4"><label>Relay 4</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="5"><label>Relay 5</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="6"><label>Relay 6</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="7"><label>Relay 7</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="8"><label>Relay 8</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="9"><label>Relay 9</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="10"><label>Relay 10</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="1" value="11"><label>Relay 11</label></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Timeout (detik)</label>
+                    <input type="number" class="form-input pir-timeout" data-pir="1" value="60" min="0" max="3600">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Rentang Waktu Aktif</label>
+                    <div class="pir-time-range">
+                      <input type="time" class="form-input pir-time-start" data-pir="1" value="18:00">
+                      <span>s/d</span>
+                      <input type="time" class="form-input pir-time-end" data-pir="1" value="06:00">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIR 2 -->
+              <div class="pir-card" id="pir-card-2">
+                <div class="pir-card-header">
+                  <span class="pir-card-title">PIR 2</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" class="pir-enable" data-pir="2">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="pir-card-body">
+                  <div class="form-group">
+                    <label class="form-label">Relay Terhubung</label>
+                    <div class="pir-relay-mapping">
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="1"><label>Relay 1</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="2"><label>Relay 2</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="3"><label>Relay 3</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="4"><label>Relay 4</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="5"><label>Relay 5</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="6"><label>Relay 6</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="7"><label>Relay 7</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="8"><label>Relay 8</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="9"><label>Relay 9</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="10"><label>Relay 10</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="2" value="11"><label>Relay 11</label></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Timeout (detik)</label>
+                    <input type="number" class="form-input pir-timeout" data-pir="2" value="60" min="0" max="3600">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Rentang Waktu Aktif</label>
+                    <div class="pir-time-range">
+                      <input type="time" class="form-input pir-time-start" data-pir="2" value="18:00">
+                      <span>s/d</span>
+                      <input type="time" class="form-input pir-time-end" data-pir="2" value="06:00">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIR 3 -->
+              <div class="pir-card" id="pir-card-3">
+                <div class="pir-card-header">
+                  <span class="pir-card-title">PIR 3</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" class="pir-enable" data-pir="3">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="pir-card-body">
+                  <div class="form-group">
+                    <label class="form-label">Relay Terhubung</label>
+                    <div class="pir-relay-mapping">
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="1"><label>Relay 1</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="2"><label>Relay 2</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="3"><label>Relay 3</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="4"><label>Relay 4</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="5"><label>Relay 5</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="6"><label>Relay 6</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="7"><label>Relay 7</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="8"><label>Relay 8</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="9"><label>Relay 9</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="10"><label>Relay 10</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="3" value="11"><label>Relay 11</label></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Timeout (detik)</label>
+                    <input type="number" class="form-input pir-timeout" data-pir="3" value="60" min="0" max="3600">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Rentang Waktu Aktif</label>
+                    <div class="pir-time-range">
+                      <input type="time" class="form-input pir-time-start" data-pir="3" value="18:00">
+                      <span>s/d</span>
+                      <input type="time" class="form-input pir-time-end" data-pir="3" value="06:00">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIR 4 -->
+              <div class="pir-card" id="pir-card-4">
+                <div class="pir-card-header">
+                  <span class="pir-card-title">PIR 4</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" class="pir-enable" data-pir="4">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="pir-card-body">
+                  <div class="form-group">
+                    <label class="form-label">Relay Terhubung</label>
+                    <div class="pir-relay-mapping">
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="1"><label>Relay 1</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="2"><label>Relay 2</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="3"><label>Relay 3</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="4"><label>Relay 4</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="5"><label>Relay 5</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="6"><label>Relay 6</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="7"><label>Relay 7</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="8"><label>Relay 8</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="9"><label>Relay 9</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="10"><label>Relay 10</label></label>
+                      <label class="checkbox-wrapper"><input type="checkbox" class="pir-relay" data-pir="4" value="11"><label>Relay 11</label></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Timeout (detik)</label>
+                    <input type="number" class="form-input pir-timeout" data-pir="4" value="60" min="0" max="3600">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Rentang Waktu Aktif</label>
+                    <div class="pir-time-range">
+                      <input type="time" class="form-input pir-time-start" data-pir="4" value="18:00">
+                      <span>s/d</span>
+                      <input type="time" class="form-input pir-time-end" data-pir="4" value="06:00">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save PIR Config Button -->
+            <div class="mt-4">
+              <button class="btn btn-primary" id="save-pir-config">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Simpan Konfigurasi PIR
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================
+             PAGE: AUTOMATION
+             ======================================================== -->
+        <div class="page" id="page-automation">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Otomasi</h1>
+              <p class="page-subtitle">Aturan otomatis sistem</p>
+            </div>
+            <button class="btn btn-primary" id="btn-add-rule">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah Rule
+            </button>
+          </div>
+
+          <!-- Rules List -->
+          <div class="rules-list" id="rules-list">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <div class="empty-state-title">Belum ada aturan</div>
+              <div class="empty-state-text">Klik "Tambah Rule" untuk membuat aturan otomatis baru</div>
+            </div>
+          </div>
+
+          <!-- Rule Editor Modal -->
+          <div class="modal-overlay" id="rule-editor-modal">
+            <div class="modal modal-lg">
+              <div class="modal-header">
+                <span class="modal-title" id="rule-editor-title">Tambah Rule Baru</span>
+                <button class="modal-close" id="rule-editor-close" aria-label="Tutup">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Rule Name -->
+                <div class="form-group">
+                  <label class="form-label">Nama Rule <span class="required">*</span></label>
+                  <input type="text" class="form-input" id="rule-name-input" placeholder="Contoh: Nyalakan lampu teras saat malam">
+                </div>
+
+                <!-- Trigger -->
+                <div class="form-group">
+                  <label class="form-label">Tipe Pemicu <span class="required">*</span></label>
+                  <select class="form-select" id="rule-trigger-type">
+                    <option value="">-- Pilih Tipe --</option>
+                    <option value="Waktu">Waktu</option>
+                    <option value="Battery">Battery (SoC)</option>
+                    <option value="Suhu">Suhu</option>
+                    <option value="Kelembaban">Kelembaban</option>
+                    <option value="PIR">PIR</option>
+                    <option value="Arus MPPT">Arus MPPT</option>
+                    <option value="Arus AC">Arus AC</option>
+                    <option value="Manual">Manual</option>
+                  </select>
+                </div>
+
+                <!-- Trigger Parameters (dynamic) -->
+                <div class="form-group hidden" id="rule-trigger-params">
+                  <label class="form-label">Parameter Pemicu</label>
+                  <div id="rule-trigger-params-content">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+
+                <!-- Conditions -->
+                <div class="form-group">
+                  <div class="flex items-center justify-between mb-2">
+                    <label class="form-label" style="margin-bottom:0;">Kondisi</label>
+                    <div class="logic-toggle" id="conditions-logic">
+                      <button class="logic-toggle-btn active" data-logic="AND">AND</button>
+                      <button class="logic-toggle-btn" data-logic="OR">OR</button>
+                    </div>
+                  </div>
+                  <div id="conditions-list">
+                    <!-- Condition rows populated dynamically -->
+                  </div>
+                  <button class="btn btn-ghost btn-sm mt-2" id="btn-add-condition">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Tambah Kondisi
+                  </button>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-group">
+                  <label class="form-label">Aksi <span class="required">*</span></label>
+                  <div id="actions-list">
+                    <!-- Action rows populated dynamically -->
+                  </div>
+                  <button class="btn btn-ghost btn-sm mt-2" id="btn-add-action">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Tambah Aksi
+                  </button>
+                </div>
+
+                <!-- Timeout & Priority -->
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Timeout (detik)</label>
+                    <input type="number" class="form-input" id="rule-timeout-input" placeholder="Opsional" min="0">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Prioritas <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="rule-priority-input" placeholder="1-10" min="1" max="10" value="5">
+                  </div>
+                </div>
+
+                <!-- Enabled Toggle -->
+                <div class="form-group">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="rule-enabled-input" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Aktifkan rule</span>
+                  </label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" id="rule-editor-cancel">Batal</button>
+                <button class="btn btn-primary" id="rule-editor-save">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Simpan Rule
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================
+             PAGE: ADMIN
+             ======================================================== -->
+        <div class="page" id="page-admin">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Admin</h1>
+              <p class="page-subtitle">Manajemen pengguna dan konfigurasi sistem</p>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="admin-users">Pengguna</button>
+            <button class="tab-btn" data-tab="admin-system">Sistem</button>
+          </div>
+
+          <!-- Users Tab -->
+          <div class="tab-content active" id="tab-admin-users">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="section-title" style="margin-bottom:0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Daftar Pengguna
+              </h2>
+              <button class="btn btn-primary btn-sm" id="btn-add-user">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Tambah User
+              </button>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="data-table" id="users-table">
+                <thead>
+                  <tr>
+                    <th>Nama Pengguna</th>
+                    <th>Peran</th>
+                    <th>Aktif</th>
+                    <th>Login Terakhir</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="users-tbody">
+                  <tr>
+                    <td colspan="5" class="text-center text-muted" style="padding:2rem;">Memuat data pengguna...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- System Tab -->
+          <div class="tab-content" id="tab-admin-system">
+            <!-- System Info -->
+            <div class="section">
+              <h2 class="section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Informasi Sistem
+              </h2>
+              <div class="system-cards" id="system-info-cards">
+                <div class="system-card">
+                  <span class="system-card-label">Versi Firmware</span>
+                  <span class="system-card-value" id="sys-firmware">--</span>
+                </div>
+                <div class="system-card">
+                  <span class="system-card-label">Uptime ESP32</span>
+                  <span class="system-card-value" id="sys-uptime">--</span>
+                </div>
+                <div class="system-card">
+                  <span class="system-card-label">WiFi RSSI</span>
+                  <span class="system-card-value" id="sys-rssi">-- dBm</span>
+                </div>
+                <div class="system-card">
+                  <span class="system-card-label">Free Heap</span>
+                  <span class="system-card-value" id="sys-heap">-- KB</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Configuration -->
+            <div class="section">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="section-title" style="margin-bottom:0;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Konfigurasi Sistem
+                </h2>
+                <button class="btn btn-secondary btn-sm" id="btn-save-config">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Simpan
+                </button>
+              </div>
+              <div class="card">
+                <div class="config-list" id="config-list">
+                  <div class="text-center text-muted" style="padding:2rem;">Memuat konfigurasi...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Export Data -->
+            <div class="section">
+              <button class="btn btn-success" id="btn-export-csv">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Ekspor Data (CSV)
+              </button>
+            </div>
+          </div>
+
+          <!-- Create User Modal -->
+          <div class="modal-overlay" id="create-user-modal">
+            <div class="modal modal-sm">
+              <div class="modal-header">
+                <span class="modal-title">Tambah Pengguna Baru</span>
+                <button class="modal-close" id="create-user-close" aria-label="Tutup">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="form-label">Nama Pengguna <span class="required">*</span></label>
+                  <input type="text" class="form-input" id="new-user-username" placeholder="Masukkan nama pengguna">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Kata Sandi <span class="required">*</span></label>
+                  <input type="password" class="form-input" id="new-user-password" placeholder="Masukkan kata sandi">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Peran <span class="required">*</span></label>
+                  <select class="form-select" id="new-user-role">
+                    <option value="user">User (Pantau saja)</option>
+                    <option value="tech">Technician</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" id="create-user-cancel">Batal</button>
+                <button class="btn btn-primary" id="create-user-save">Buat Pengguna</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================
+             PAGE: SETTINGS
+             ======================================================== -->
+        <div class="page" id="page-settings">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Pengaturan</h1>
+              <p class="page-subtitle">Profil dan preferensi pengguna</p>
+            </div>
+          </div>
+
+          <!-- User Profile -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Profil Pengguna</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="user-avatar" id="settings-avatar" style="width:56px;height:56px;font-size:1.2rem;">A</div>
+              <div>
+                <div style="font-size:1.1rem;font-weight:600;" id="settings-username">Admin</div>
+                <div style="font-size:0.85rem;color:var(--text-secondary);" id="settings-role">Administrator</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Change Password -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Ubah Kata Sandi</span>
+            </div>
+            <form id="change-password-form">
+              <div class="form-group">
+                <label class="form-label">Kata Sandi Lama <span class="required">*</span></label>
+                <input type="password" class="form-input" id="old-password" placeholder="Masukkan kata sandi lama" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kata Sandi Baru <span class="required">*</span></label>
+                <input type="password" class="form-input" id="new-password" placeholder="Masukkan kata sandi baru" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Konfirmasi Kata Sandi Baru <span class="required">*</span></label>
+                <input type="password" class="form-input" id="confirm-password" placeholder="Ulangi kata sandi baru" required>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Ubah Kata Sandi
+              </button>
+            </form>
+          </div>
+
+          <!-- Theme -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Tampilan</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Mode Tema</div>
+                <div class="form-hint">Ganti antara tema gelap dan terang</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label" id="theme-label">Tema Gelap</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Notifikasi</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <div style="font-weight:500;">Notifikasi Peramban</div>
+                <div class="form-hint">Terima notifikasi peringatan di peramban</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="notification-toggle">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Aktifkan</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="card section">
+            <div class="card-header">
+              <span class="card-title">Tentang</span>
+            </div>
+            <div class="about-section">
+              <div class="about-item">
+                <span class="about-label">Versi Aplikasi</span>
+                <span class="about-value">v1.0</span>
+              </div>
+              <div class="about-item">
+                <span class="about-label">Nama Sistem</span>
+                <span class="about-value">PLTS SmartHome</span>
+              </div>
+              <div class="about-item">
+                <span class="about-label">Deskripsi</span>
+                <span class="about-value">Sistem Monitoring dan Kontrol PLTS SmartHome</span>
+              </div>
+              <div class="about-item">
+                <span class="about-label">Install Aplikasi</span>
+                <button class="btn btn-primary btn-sm" id="btn-install-pwa" style="display:none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Install ke Perangkat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GENERIC MODAL OVERLAY (Confirmations)
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal modal-sm" id="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">Konfirmasi</span>
+        <button class="modal-close" id="modal-close" aria-label="Tutup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Dynamic content -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-secondary" id="modal-cancel">Batal</button>
+        <button class="btn btn-danger" id="modal-confirm">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TOAST NOTIFICATION CONTAINER
+       ============================================================ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/rules-editor.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
