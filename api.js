@@ -16,7 +16,7 @@ const Api = {
   // ==================================================================
 
   /** Base URL for Google Apps Script deployment */
-  BASE_URL: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec',
+  BASE_URL: 'https://script.google.com/macros/s/AKfycbwHB33dD9Uc0GDaE3q5DN-F23iVHvsJQokjZebv3nnx32hjZyGImlfzfxqQBODQzWr9/exec',
 
   /** Default request timeout in milliseconds */
   TIMEOUT_MS: 15000,
